@@ -9,11 +9,10 @@
 <script>
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
+    
     if (request.greeting == "getVars")
-      sendResponse({k: "fuck"});
+      sendResponse({k: window.localStorage.getItem("k"),
+		s:window.localStorage.getItem("s")});
     else
       sendResponse({}); // snub them.
   });

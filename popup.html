@@ -36,40 +36,46 @@ $(document).ready(function() {
 	$("#button_save").click(
 		function (){
 			
-			//$("#keywords").val(localStorage.getItem("g_keywords"));//[0].sex);
- 			//localStorage["favorite_color"]=$("#keywords").val();
-			chrome.tabs.get(function(tab){alert('x');});
+			var k=$("#k").val().trim();
+			if (k)
+			{
+				window.localStorage.setItem("k", k); 
+			}
+			var s=$("#s").val().trim();
+			if (s)
+			{
+				window.localStorage.setItem("s", s); 
+			}
 		}
     );// button_save ends
 	
         function initValues()
         {
-            var g_sources=window.localStorage.getItem("g_sources");
-            if (g_sources)
+            var s=window.localStorage.getItem("s");
+            if (s)
             {
-                $("#source").val(g_sources);
+                $("#s").val(s);
             }
             else
             {
                 var s="街旁, 开开Kai";
-                window.localStorage.setItem("g_sources", s); 
-                $("#source").val(s);
+                window.localStorage.setItem("s", s); 
+                $("#s").val(s);
             }
             //set keywords
-            var g_keywords=localStorage.getItem("g_keywords");
-            if (g_keywords)
+            var k=localStorage.getItem("k");
+            if (k)
             {
-                $("#keywords").val(g_keywords);
+                $("#k").val(k);
             }
             else
             {
                 var k="轮功, ^@, 绑定手机";
-                localStorage.setItem("g_keywords", k); 
-                $("#keywords").val(k);
+                localStorage.setItem("k", k); 
+                $("#k").val(k);
             } 
         }//initValues ends
 
-		
 
     initValues(); 
 	
@@ -80,8 +86,8 @@ $(document).ready(function() {
 	<h3>饭否小助手</h3>
    <div id='option'>
    		<ul>
-   			<li><p>关键词：</p><textarea name="keywords" id="keywords" value="" ></textarea></li>
-   			<li><p>消息来源：</p><textarea name="source" id="source" value=""></textarea></li>
+   			<li><p>关键词：</p><textarea name="keyword" id="k" value="" ></textarea></li>
+   			<li><p>消息来源：</p><textarea name="source" id="s" value=""></textarea></li>
    			<li><button id="button_save">保存</button></li>
    		</ul>
    </div> 
