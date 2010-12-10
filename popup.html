@@ -1,0 +1,88 @@
+<style>
+    body {
+      min-width:200px;
+      overflow-x:hidden;
+      
+    } 
+	ul, li{
+		list-style: none;
+		padding:0;
+		margin: 0;
+	}
+	h3{
+		text-align: center;
+	}
+	#option{
+		margin-left: 5px;
+		margin-right:5px;
+	}
+	textarea{
+		width:190px;
+	}
+	button{
+		margin-top: 10px;
+		width:190px;
+	}
+	p{
+		margin:4px;
+		font-size: 13px;
+	}
+	
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#button_save").click(
+		function (){
+			
+			//$("#keywords").val(localStorage.getItem("g_keywords"));//[0].sex);
+ 			//localStorage["favorite_color"]=$("#keywords").val();
+			chrome.tabs.get(function(tab){alert('x');});
+		}
+    );// button_save ends
+	
+        function initValues()
+        {
+            var g_sources=window.localStorage.getItem("g_sources");
+            if (g_sources)
+            {
+                $("#source").val(g_sources);
+            }
+            else
+            {
+                var s="街旁, 开开Kai";
+                window.localStorage.setItem("g_sources", s); 
+                $("#source").val(s);
+            }
+            //set keywords
+            var g_keywords=localStorage.getItem("g_keywords");
+            if (g_keywords)
+            {
+                $("#keywords").val(g_keywords);
+            }
+            else
+            {
+                var k="轮功, ^@, 绑定手机";
+                localStorage.setItem("g_keywords", k); 
+                $("#keywords").val(k);
+            } 
+        }//initValues ends
+
+		
+
+    initValues(); 
+	
+})    //document ready finished; 
+</script>
+
+<body>
+	<h3>饭否小助手</h3>
+   <div id='option'>
+   		<ul>
+   			<li><p>关键词：</p><textarea name="keywords" id="keywords" value="" ></textarea></li>
+   			<li><p>消息来源：</p><textarea name="source" id="source" value=""></textarea></li>
+   			<li><button id="button_save">保存</button></li>
+   		</ul>
+   </div> 
+</body>
