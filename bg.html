@@ -16,6 +16,8 @@ chrome.extension.onRequest.addListener(
     else
       sendResponse({}); // snub them.
   });
+
+	chrome.tabs.insertCSS(null, {code:"h1{color:red;}"});
 </script>
   </head>
 </html>

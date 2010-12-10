@@ -130,7 +130,7 @@ function main(k) {
         $("#pagination-more, #timeline-notification").click(function(){
                 setTimeout(function(){
                     filter(kr, sr);
-                }, 3000);
+                }, 1000);
             filter(kr, sr);
         });  
 
@@ -153,29 +153,31 @@ function main(k) {
     }
     
     //hyperlink
-    var fold;
-    var unfold;
-    var init=0;
+    var fold="";
+    
+    var unfold='';
+
     $("#bio > a:visible").click(function(){
-        if (init==0)
+                  
+        setTimeout(function()
         {
-            fold=$("#bio").html();
-            setTimeout(function(){
-                unfold=$("#bio").html();
-                unfold=unfold.replace(/(?:ftp|https?):\/\/[^\s<>]+(?!["\s]+|<\/a>)/gi,"<a href='$&'>$&</a>");
-                //alert(unfold);
-                $("#bio").html(unfold);
-                //alert(unfold);
-            },100);
-            init=1;
-        }
-        else
-        {
+            $("#bio a").remove();
+            $("#user_infos > a").remove();
+            unfold=$("#bio").html();
+            unfold=unfold.replace(/(?:ftp|https?):\/\/[^\s<>]+/gi,"<a href='$&'>$&</a>");
+            
             $("#bio").html(unfold);
-        }
-        $('#user_infos > a ').click(function(
-            $("#bio").html(fold);
-            ));
+            
+            $("#user_infos").append("<a id='x_expand' href='#' onClick='return false;'>(收起...)</a>");
+            $("#x_expand").click(function(){
+               $(".vcard li:gt(3)").toggle();
+               var title=$("#x_expand").html();
+               $("#x_expand").html(title.search('更多') >-1 ? "(收起...)" : "(更多...)");
+            });
+            
+            
+        },200); //setTimeout end
+        return false;
         
     });//hyperlink end
     
