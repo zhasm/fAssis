@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<!--
- * Copyright (c) 2010 The Chromium Authors. All rights reserved.  Use of this
- * source code is governed by a BSD-style license that can be found in the
- * LICENSE file.
--->
 <html>
-
-  <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<script>
-chrome.extension.onRequest.addListener(
-  function(request, sender, sendResponse) {
-    
-    if (request.greeting == "getVars")
-      sendResponse({k: window.localStorage.getItem("k"),
-		s:window.localStorage.getItem("s")});
-    else
-      sendResponse({}); // snub them.
-  });
-
-	chrome.tabs.insertCSS(null, {code:"h1{color:red;}"});
-</script>
-  </head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script>
+			chrome.extension.onRequest.addListener(
+			  function(request, sender, sendResponse) {
+			    
+			    if (request.greeting == "getVars")
+			      sendResponse({k: window.localStorage.getItem("k"),
+					s:window.localStorage.getItem("s")});
+			    else
+			      sendResponse({}); // snub them.
+			  });
+			
+				//chrome.tabs.insertCSS(null, {code:"h1{color:red;}"});
+		</script>
+	</head>
 </html>

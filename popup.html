@@ -1,94 +1,165 @@
-<style>
-    body {
-      min-width:200px;
-      overflow-x:hidden;
-      
-    } 
-	ul, li{
-		list-style: none;
-		padding:0;
-		margin: 0;
-	}
-	h3{
-		text-align: center;
-	}
-	#option{
-		margin-left: 5px;
-		margin-right:5px;
-	}
-	textarea{
-		width:190px;
-	}
-	button{
-		margin-top: 10px;
-		width:190px;
-	}
-	p{
-		margin:4px;
-		font-size: 13px;
-	}
-	
-</style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#button_save").click(
-		function (){
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style>
+			body {
+			          min-width:200px;
+			          overflow-x:hidden;
+			          
+			        } 
+			        ul, li{
+			            list-style: none;
+			            padding:0;
+			            margin: 0;
+			        }
+			        h3{
+			            text-align: center;
+			        }
+			        #option{
+			            margin-left: 5px;
+			            margin-right:5px;
+			        }
+			        textarea{
+			            width:190px;
+			        }
+			        button{
+			            margin-top: 10px;
+			            width:190px;
+			        }
+			        p{
+			            margin:4px;
+			            font-size: 13px;
+			        }
+		</style>
+		<title>
+			Popup
+		</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8">
+		</script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+			    
+                // Create a simple text notification:
+                var saveOk= webkitNotifications.createNotification(
+                  'icon.png',  // icon url - can be relative
+                  '饭否小助手',  // notification title
+                  '自定义设置保存成功！'  // notification body text
+                );
+
+                var saveBad= webkitNotifications.createNotification(
+                  'icon.png',  // icon url - can be relative
+                  '饭否小助手',  // notification title
+                  '自定义设置保存失败！'  // notification body text
+                );
+
+
+               // Then show the notification.
+                                
+			    $("#button_save").click(
+			        function (){
+			            
+			            var k=$("#k").val().trim();
+                        var flag=0;
+			            if (k)
+			            {
+                            window.localStorage.setItem("k", k);
+                            if (window.localStorage.getItem("k")!==k)
+                            {
+                                flag-=1;
+                                saveBad.show(); 
+                            }
+                            else
+                            {
+                                flag+=1;
+                            }
+			            }
+			            var s=$("#s").val().trim();
+			            if (s)
+			            {
+                            window.localStorage.setItem("s", s); 
+                            if (window.localStorage.getItem("s")!==s)
+                            {
+                                flag-=1;
+                                saveBad.show(); 
+                            }
+                            else
+                            {
+                                flag+=1;
+                            }
+			            }
+                        if (flag>0)
+                        {
+
+                            saveOk.show();
+                            function handleReloadExtension(node) {
+                              // Tell the C++ ExtensionDOMHandler to reload the extension.
+                              chrome.send('reload', [node.extensionId]);
+                            }
+
+                        }
+
+			        }//click end;
+			    );// button_save ends
+			    
+			        function initValues()
+			        {
+			            var s=window.localStorage.getItem("s");
+			            if (s)
+			            {
+			                $("#s").val(s);
+			            }
+			            else
+			            {
+			                var s="街旁, 开开Kai";
+			                window.localStorage.setItem("s", s); 
+			                $("#s").val(s);
+			            }
+			            //set keywords
+			            var k=localStorage.getItem("k");
+			            if (k)
+			            {
+			                $("#k").val(k);
+			            }
+			            else
+			            {
+			                var k="轮功, ^@, 绑定手机";
+			                localStorage.setItem("k", k); 
+			                $("#k").val(k);
+			            } 
+			        }//initValues ends
 			
-			var k=$("#k").val().trim();
-			if (k)
-			{
-				window.localStorage.setItem("k", k); 
-			}
-			var s=$("#s").val().trim();
-			if (s)
-			{
-				window.localStorage.setItem("s", s); 
-			}
-		}
-    );// button_save ends
-	
-        function initValues()
-        {
-            var s=window.localStorage.getItem("s");
-            if (s)
-            {
-                $("#s").val(s);
-            }
-            else
-            {
-                var s="街旁, 开开Kai";
-                window.localStorage.setItem("s", s); 
-                $("#s").val(s);
-            }
-            //set keywords
-            var k=localStorage.getItem("k");
-            if (k)
-            {
-                $("#k").val(k);
-            }
-            else
-            {
-                var k="轮功, ^@, 绑定手机";
-                localStorage.setItem("k", k); 
-                $("#k").val(k);
-            } 
-        }//initValues ends
-
-
-    initValues(); 
-	
-})    //document ready finished; 
-</script>
-
-<body>
-	<h3>饭否小助手</h3>
-   <div id='option'>
-   		<ul>
-   			<li><p>关键词：</p><textarea name="keyword" id="k" value="" ></textarea></li>
-   			<li><p>消息来源：</p><textarea name="source" id="s" value=""></textarea></li>
-   			<li><button id="button_save">保存</button></li>
-   		</ul>
-   </div> 
-</body>
+			
+			    initValues(); 
+			    
+			})    //document ready finished;
+		</script>
+	</head>
+	<body>
+		<h3>
+			饭否小助手
+		</h3>
+		<div id='option'>
+			<ul>
+				<li>
+					<p>
+						关键词：
+					</p>
+					<textarea name="keyword" id="k" value="" >
+					</textarea>
+				</li>
+				<li>
+					<p>
+						消息来源：
+					</p>
+					<textarea name="source" id="s" value="">
+					</textarea>
+				</li>
+				<li>
+					<button id="button_save">
+						保存
+					</button>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

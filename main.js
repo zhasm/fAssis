@@ -1,3 +1,4 @@
+//<script type="text/javascript" charset="utf-8">
 
 chrome.extension.sendRequest({greeting: "getVars"}, function(response) {
  
@@ -125,15 +126,28 @@ function main(k) {
         //when loading the page, filter:
         var kr=str2regex(k);
         var sr=str2regex(s);
-        
+
+        //advanced search on /home page
+        $("#searchr\-submit").remove();
+        $("#searchr-input").after("<a href='#' id='adv_search' class='formbutton'>搜索<sup style='color:red;'>new</sup></a>");
+        $("#adv_search").click(function(){
+
+            var keyword=$("#searchr-input").val();
+            var url="http://fanfou.com/advancedsearch?q="+keyword; 
+            window.location.href=url;
+            return false; 
+        });
+
+
         filter(kr, sr);
         $("#pagination-more, #timeline-notification").click(function(){
                 setTimeout(function(){
                     filter(kr, sr);
-                }, 1000);
+                }, 1500);
             filter(kr, sr);
         });  
 
+    
     }
 
     else if (path.search("advancedsearch") !==-1)
@@ -164,7 +178,7 @@ function main(k) {
             $("#bio a").remove();
             $("#user_infos > a").remove();
             unfold=$("#bio").html();
-            unfold=unfold.replace(/(?:ftp|https?):\/\/[^\s<>]+/gi,"<a href='$&'>$&</a>");
+            unfold=unfold.replace(/(?:ftp|https?):\/\/[^\s<>]+/gi,"<a href='$&' target='_blank'>$&</a>");
             
             $("#bio").html(unfold);
             
@@ -176,7 +190,7 @@ function main(k) {
             });
             
             
-        },200); //setTimeout end
+        },1000); //setTimeout end
         return false;
         
     });//hyperlink end
@@ -187,4 +201,4 @@ function main(k) {
 
 // load jQuery and execute the main function
 addJQuery(main);
-
+//</script>
