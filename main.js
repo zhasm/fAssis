@@ -30,6 +30,15 @@ function main(k) {
 	$("#miibeian").removeAttr("s");
 	$("#miibeian").removeAttr("a");
 
+	function hideAvatar() {
+		if (a == "true") {
+			$(".avatar").remove();
+			$("#stream .wa li").css("padding-left", "0");
+			$("#stream .wa li").css("width", "450px");
+			$("#stream.message li a.author").css("font-weight", "bold");
+		}
+	}
+	
 	function str2regex(s) {
 		// 'abc,xyz'=> /abc|xyz/i
 		var s = s.replace(/\s*,\s*/g, '|'); 
@@ -104,11 +113,14 @@ function main(k) {
 		var sr = str2regex(s);
 
 		filter(kr, sr);
+		hideAvatar();
 		$("#pagination-more, #timeline-notification").click(function() {
 			setTimeout(function() {
 				filter(kr, sr);
+				hideAvatar();
 			}, 1500);
 			filter(kr, sr);
+			hideAvatar();
 		});	
 	}
 
@@ -133,11 +145,6 @@ function main(k) {
 		},1000); // setTimeout end
 			return false;
 	});
-
-	// avatar
-	if (a == "true") {
-		$(".avatar").remove();
-	}
 
 	// remove other useless content
 	$("#goodapp").remove();

@@ -1,15 +1,12 @@
 {
     "name": "Fanfou Assistant",
-    "version": "0.0.0.5",
-    "description": "Fanfou Assistant: Filter unwanted messages, advanced search button; display user's backgound image;",
+    "version": "0.0.0.6",
+    "description": "Fanfou Assistant: Filter unwanted messages; Hide user's avatar; Display user's backgound image;",
     "browser_action":{
         "default_icon": "48.png",
         "popup": "popup.html",
         "default_title": "Fanfou Assistant"
     },
-    "permissions":[
-        "http://fanfou.com/*","http://fanwai.com/*","notifications"
-        ],
     "icons":{
         "48":"icon.png",
 		"128":"icon.png"
